@@ -1,0 +1,17 @@
+
+.container{
+    width: 100%;
+    padding: 10px;
+}
+
+.fertilizer-graph{
+    border-right: 1px solid #e7e7e7;
+}
+.dateTime{
+    float: right;
+    color: #777;
+}
+
+.graph-label{
+    color: #777;
+}

@@ -1,0 +1,131 @@
+<div class="modal-dialog" style="height: 100%; overflow-y: scroll;">
+    <form name="form" #f="ngForm" novalidate>
+        <div class="modal-content">
+           <div class="modal-header">
+            <div>
+                <button type="button" class="close" (click)="close()">&times;</button>
+                <h4 class="modal-title">CASH/BILL</h4>
+            </div>
+            <div>
+                    <div class="col-md-8 col-sm-8 col-lg-8"><label>BILL NO:</label>&nbsp;&nbsp;&nbsp;{{currentBill.billId}}</div>
+                    <div class="col-md-4 col-sm-4 col-lg-4"><label>DATE:</label>&nbsp;&nbsp;&nbsp;{{currentBill.billDate | date: 'yyyy-MM-dd'}}</div>
+            </div>
+            <div>
+                    <div class="col-md-12 col-sm-12 col-lg-12">
+                        <div class="form-group">
+                                <label class="col-md-4 col-sm-4 col-lg-4 control-label" for="customerId">Customer Id: </label>  
+                                <div class="col-md-6 col-sm-6 col-lg-6">
+                                <input type="text" placeholder="Customer Id" name="customerId" class="form-control input-md" [(ngModel)]="currentBill.customerId" #customerId="ngModel" required />
+                                </div>
+                              </div>
+                    </div>
+            </div>
+           </div>
+           <div class="modal-body">
+                <div class="container display-all-product-container">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-lg-12">
+                                    <table class="table table-hover app-table">
+                                            <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Product </th>
+                                                <th>Type</th>
+                                                <th>Quantity</th>
+                                                <th>Price</th>
+                                                <th>Amount</th>
+                                                <th>Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr *ngFor="let product of currentBill.purchaseItems; let $index = index">
+                                                <td>{{ $index + 1 }}</td>
+                                                <td>{{product.productName}}</td>
+                                                <td>{{product.productType}}</td>
+                                                <td>{{product.quantity}}</td>
+                                                <td><i class="fa fa-inr"></i>{{product.price}}</td>
+                                                <td><i class="fa fa-inr"></i>{{product.subTotal}}</td>
+                                                <td>
+                                                                <a (click)="removeItem($index)">
+                                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                                </a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <hr style="border-top: dotted 2px;">
+                            <div class="col-md-5 col-sm-5 col-lg-5"></div>
+                            <div class="col-md-3 col-sm-3 col-lg-3">{{currentBill.totalQuantity}}</div>
+                            <div class="col-md-2 col-sm-2 col-lg-2"><i class="fa fa-inr"></i>{{currentBill.totalAmount}}</div>
+                            <div class="col-md-2 col-sm-2 col-lg-2"></div>
+                        </div>
+                        <form name="form" #f2="ngForm" novalidate>
+                        <div class="row">
+                            <div class="col-md-5 col-sm-5 col-lg-5">
+                                    <div class="form-group">
+                                            <label for="newProduct">Product Name</label>
+                                            <select class="form-control" name="newProduct" [(ngModel)]="newProduct.selectedProduct" #selectedProduct="ngModel" required
+                                            (change)="getSelectedProductDetails()">
+                                                <option [disabled]="true" value="Select Product">Select Product</option>
+                                                        <option *ngFor="let product of refinedProducts" value= {{product._id}}>
+                                                      {{product.productName}}-{{product.companyName}}
+                                                    </option>
+                                                  </select>
+                                    </div>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-lg-2">
+                                    <div class="form-group">
+                                            <label for="quantity">Quantity</label>
+                                            <input type="number" class="form-control" name="quantity" [(ngModel)]="newProduct.quantity" #quantity="ngModel" required
+                                            (change)="checkStockQuantity(newProduct.quantity)" />
+                                        </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-lg-3">
+                                    <div class="form-group">
+                                            <label for="price">Price</label>
+                                            <input type="number" class="form-control" name="price" [(ngModel)]="newProduct.price" #price="ngModel" required
+                                            (change)="checkPrice(newProduct.price)" />
+                                        </div>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-lg-2">
+                                    <div class="form-group">
+                                            <label for="quantity">Action</label>
+                                            <button [disabled]="!f2.form.valid" type="button" class="btn btn-primary btn-sm" (click)="addProductToBill()">Add</button>
+                                    </div>
+                            </div>      
+                        </div>
+                        </form>
+                </div>
+           </div>
+           <div class="modal-footer">
+                   <div class="row">
+                           <div class="col-md-6 col-sm-6 col-lg-6">
+                                        <div class="form-group">
+                                                        <label for="amountPaid" class="col-md-6 col-sm-6 col-lg-6">Amount Paid:</label>
+                                                        <div class="col-md-6 col-sm-6 col-lg-6">
+                                                                <input type="number" class="form-control" name="amountPaid" [(ngModel)]="currentBill.amountPaid" #amountPaid="ngModel"
+                                                                required />
+                                                        </div>
+                                        </div>
+                           </div>
+                           <div class="col-md-6 col-sm-6 col-lg-6">
+                                        <div class="form-group">
+                                                        <label for="amountCredit" class="col-md-6 col-sm-6 col-lg-6">Amount Credit:</label>
+                                                        <div class="col-md-6 col-sm-6 col-lg-6">
+                                                                <input type="number" class="form-control" name="amountCredit" [(ngModel)]="currentBill.amountCredit" #amountCredit="ngModel"
+                                                                required />
+                                                        </div>
+                                        </div>
+                           </div>
+                   </div>
+                   
+                <button type="button" class="btn btn-primary" [disabled]="!f.form.valid" (click)="saveBill();close()">Save Bill</button>
+                <button type="button" class="btn btn-default" (click)="close()" >Cancel</button>
+        
+           </div>
+        </div>
+    </form>
+</div>

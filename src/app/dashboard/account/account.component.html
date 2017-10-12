@@ -1,0 +1,53 @@
+<form name="form" (ngSubmit)="f.form.valid" #f="ngForm" class="form-horizontal col-md-12 col-sm-12 col-lg-8" novalidate>
+        <!-- Form Name -->
+        <h1>Profile Details</h1>
+        <!-- Text input-->
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !firstName.valid }">
+          <label class="col-md-4 col-sm-4 col-lg-4 control-label" for="firstName">First Name</label>  
+          <div class="col-md-4 col-sm-4 col-lg-4">
+          <input type="text" placeholder="First Name" name="firstName" class="form-control input-md" [(ngModel)]="accountDetails.firstName" #firstName="ngModel" required >
+          <div *ngIf="f.submitted && !firstName.valid" class="help-block">First Name is required</div>  
+          </div>
+        </div>
+        
+        <!-- Text input-->
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !lastName.valid }">
+          <label class="col-md-4 col-sm-4 col-lg-4 control-label" for="lastName">Last Name</label>  
+          <div class="col-md-4 col-sm-4 col-lg-4">
+          <input type="text" placeholder="Last Name" name="lastName" class="form-control input-md" [(ngModel)]="accountDetails.lastName" #lastName="ngModel" required >
+          <div *ngIf="f.submitted && !lastName.valid" class="help-block">Last Name is required</div>  
+          </div>
+        </div>
+
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !lastName.valid }">
+            <label class="col-md-4 col-sm-4 col-lg-4 control-label" for="mobile">Mobile Number</label>  
+            <div class="col-md-4 col-sm-4 col-lg-4">
+            <input type="text" placeholder="Mobile Number" name="mobile" class="form-control input-md" [(ngModel)]="accountDetails.mobile" #mobile="ngModel" required >
+            <div *ngIf="f.submitted && !mobile.valid" class="help-block">Last Name is required</div>  
+            </div>
+          </div>
+        
+        <!-- Text input-->
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+          <label class="col-md-4 col-sm-4 col-lg-4 control-label" for="username">UserName</label>  
+          <div class="col-md-4 col-sm-4 col-lg-4">
+          <input type="text" [disabled]="true" placeholder="UserName" name="username" class="form-control input-md" [(ngModel)]="accountDetails.username" #username="ngModel" >
+          </div>
+        </div>
+        
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+            <label class="col-md-4 col-sm-4 col-lg-4 control-label" for="role">Role</label>  
+            <div class="col-md-4 col-sm-4 col-lg-4">
+            <input type="text" [disabled]="true" placeholder="Role" name="role" class="form-control input-md" [(ngModel)]="accountDetails.role" #role="ngModel" >
+            </div>
+          </div>
+
+        <!-- Button -->
+        <div class="form-group">
+          <label class="col-md-4 col-sm-4 col-lg-4 control-label" for="update"></label>
+          <div class="col-md-4 col-sm-4 col-lg-4">
+            <button name="update" type="button" [disabled]="!f.form.valid" class="btn btn-success" (click)="updateUser()">Update</button>
+          </div>
+        </div>
+        </form>
+        

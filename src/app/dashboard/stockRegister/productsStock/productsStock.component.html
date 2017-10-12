@@ -1,0 +1,67 @@
+<div class="container display-all-product-container">
+    <div class="row">
+        <div class="col-md-4 col-sm-4 col-lg-6">
+            <h4>List of Products</h4>
+        </div>
+        <div class="col-md-8 col-sm-8 col-lg-6">
+            <div class="form-group">
+                <label class="col-md-2 col-sm-2 col-lg-2  control-label" for="search" style="padding-top: 7px;">Search: </label>
+                <div class="col-md-10 col-sm-10 col-lg-10">
+                    <input type="text" placeholder="Search By Product Name" name="search" class="form-control input-md" [(ngModel)]="search"
+                        (ngModelChange)="searchByProduct($event)">
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12">
+            <table class="table table-hover table-bordered app-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Product</th>
+                        <th>Company</th>
+                        <th>Type</th>
+                        <th>In Stock</th>
+                        <!-- <th>Action</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of pagedItems; let $index = index">
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{product.productName}}</td>
+                        <td>{{product.companyName}}</td>
+                        <td>{{product.productType}}</td>
+                        <td>{{product.quantity}}</td>
+                        <!-- <td>
+                                    <a (click)="removeProduct($index)">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </a>
+                                </td> -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row" *ngIf="paginationFlag">
+        <ul class="pagination pull-right">
+            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                <a (click)="setPage(1)">First</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+            </li>
+            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                <a (click)="setPage(page)">{{page}}</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a (click)="setPage(pager.currentPage + 1)">Next</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a (click)="setPage(pager.totalPages)">Last</a>
+            </li>
+        </ul>
+    </div>
+
+</div>

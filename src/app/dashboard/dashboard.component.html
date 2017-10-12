@@ -1,0 +1,74 @@
+<nav class="navbar navbar-inverse navbar-static-top">
+        <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar3">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>   
+            <a class="navbar-brand" [routerLink]="['/dashboard']">{{brandName}}
+            </a>
+        </div>
+        <div id="navbar3" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{currentUser.firstName}} {{currentUser.lastName}} <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                <li><a [routerLink]="['/dashboard/accountDetails']">My Account</a></li>
+                <li><a (click)="logout()">Logout</a></li>
+                </ul>
+            </li>
+            </ul>
+        </div>
+        </div>
+</nav>
+<div class="container">
+<div class="row">
+        <div class="side-menu">
+        
+        <nav class="navbar navbar-default col-sm-3 navbar-container" role="navigation">
+        <div class="navbar-header">
+            <div class="brand-wrapper">
+                <div class="brand-name-wrapper">
+                    <span class="navbar-brand">
+                        #MENU
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="side-menu-container">
+            <ul class="nav navbar-nav">
+    
+                <li><a [routerLink]="['/dashboard/overview']"><i class="fa fa-line-chart"></i>&nbsp;&nbsp;&nbsp; OVERVIEW</a></li>
+                <li><a [routerLink]="['/dashboard/bills']"><i class="fa fa-file-text-o"></i>&nbsp;&nbsp;&nbsp; BILLS</a></li>
+                <li class="panel panel-default" id="dropdown">
+                    <a data-toggle="collapse" href="#dropdown-lvl1">
+                            <i class="fa fa-indent"></i>&nbsp;&nbsp;&nbsp; STOCK REGISTER <span class="caret"></span>
+                    </a>
+                    <div id="dropdown-lvl1" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <ul class="nav navbar-nav">
+                                <li><a [routerLink]="['/dashboard/stockRegister/productsStock']">Products Stock</a></li>
+                                <li><a [routerLink]="['/dashboard/stockRegister/addproducts']">Add Products</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li *ngIf="authenticationFlag"><a [routerLink]="['/dashboard/activities']"><i class="fa fa-list-ul"></i>&nbsp;&nbsp;&nbsp; ACTIVITIES</a></li>
+                <li *ngIf="authenticationFlag"><a [routerLink]="['/dashboard/register']"><i class="fa fa-user-plus"></i>&nbsp;&nbsp;&nbsp; CREATE USER</a></li>
+                <li><a [routerLink]="['/dashboard/customers']"><i class="fa fa-users"></i>&nbsp;&nbsp;&nbsp; CUSTOMERS</a></li>
+                <li><a [routerLink]="['/dashboard/accountDetails']"><i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; ACCOUNT DETAILS</a></li>
+    
+            </ul>
+        </div>
+    </nav>
+    <div class="col-sm-9 side-panel">   
+            <div class="col-md-6" style="float: right;margin-top: 5px;">
+                <alert></alert>
+            </div>
+            <router-outlet></router-outlet>
+    </div>
+</div>
+</div>
+</div>

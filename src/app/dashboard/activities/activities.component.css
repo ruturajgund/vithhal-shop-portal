@@ -1,0 +1,21 @@
+.card{
+    float: left;
+    width: 100%;
+}
+
+.type-border{
+    border-left: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.activity-border{
+    border-left: 1px solid #e7e7e7;
+}
+
+.card-body{
+    color: #777;
+}
+
+.author{
+    font-size: 12px;
+}

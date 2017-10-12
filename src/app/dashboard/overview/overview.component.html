@@ -1,0 +1,113 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+                <button (click)="showGraph()" class="  btn btn-sm btn-default">Show Graph</button>
+                <button (click)="randomizeType()" class="  btn btn-sm btn-default">Change GraphView</button>
+        </div>
+        <div class="col-md-6">
+                <h2 class="dateTime">
+                        {{todaysDate | date:"yMMMMEEEEd"}}
+                    </h2>
+        </div>
+    </div>
+ 
+    <div *ngIf="graphFlag">
+        <hr>
+        <div class="row">
+                <div class="col-md-6 fertilizer-graph">
+                        <h3 class="graph-label">FERTILIZER GRAPH</h3>
+                            <canvas baseChart
+                                        [data]="pieChartData1"
+                                        [labels]="pieChartLabels1"
+                                        [chartType]="pieChartType"
+                                        (chartHover)="chartHovered($event)"
+                                        (chartClick)="chartClicked($event)"></canvas>
+                    </div>
+                    <div class="col-md-6">
+                        <h3 class="graph-label">PESTICIDE GRAPH</h3>
+                        <canvas baseChart
+                                    [data]="pieChartData2"
+                                    [labels]="pieChartLabels2"
+                                    [chartType]="pieChartType"
+                                    (chartHover)="chartHovered($event)"
+                                    (chartClick)="chartClicked($event)"></canvas>
+                    </div>
+        </div>
+        <hr>
+        <div class="row" *ngIf="authenticationFlag">
+                <div class="col-md-12">
+                        <h3 class="graph-label">BUSSINESS GRAPH</h3>
+                        <canvas baseChart
+                                    [datasets]="lineChartData1"
+                                    [labels]="lineChartLabels"
+                                    [options]="lineChartOptions"
+                                    [chartType]="lineChartType"
+                                    (chartHover)="chartHovered($event)"
+                                    (chartClick)="chartClicked($event)"></canvas>
+                </div>
+        </div>
+        <hr>
+        <div class="row" *ngIf="authenticationFlag">
+                <div class="col-md-12">
+                        <h3 class="graph-label">PROFIT GRAPH</h3>
+                        <canvas baseChart
+                                    [datasets]="lineChartData2"
+                                    [labels]="lineChartLabels"
+                                    [options]="lineChartOptions"
+                                    [chartType]="lineChartType"
+                                    (chartHover)="chartHovered($event)"
+                                    (chartClick)="chartClicked($event)"></canvas>
+                </div>
+        </div>
+       <hr>
+       <div class="row" *ngIf="authenticationFlag">
+                <h3 class="graph-label">COUNTER DETAILS BY DATE RANGE</h3>
+               <div class="row">
+                        <form name="form" #f="ngForm" novalidate>
+                       <div class="form-group col-md-5 col-sm-5 col-lg-5">
+                                       <label for="mobile">Start Date:</label>
+                                       <input type="date" class="form-control" name="startDate" [(ngModel)]="startDate" required />
+                       </div>
+                       <div class="form-group col-md-5 col-sm-5 col-lg-5">
+                                       <label for="mobile">End Date:</label>
+                                       <input type="date" class="form-control" name="endDate" [(ngModel)]="endDate" required />
+                       </div>
+                       <div class="col-md-2 col-sm-2 col-lg-2">
+                                       <button (click)="getCounterDetailsByDateRange()" [disabled]="!f.form.valid" style="margin-top: 18%" class="  btn btn-sm btn-default">Get Details</button>
+                       </div>
+                        </form>
+               </div>
+               <div class="row">
+                       <div class="col-md-12 col-sm-12 col-lg-12" *ngIf="byRangeCounterDeatils.length!=0">
+                                <table class="table table-hover table-bordered app-table">
+                                                <thead>
+                                                  <tr>
+                                                    <th>#</th>
+                                                    <th>Date</th>
+                                                    <th>Pestiside Profit</th>
+                                                    <th>Fertilizer Profit</th>
+                                                    <th>Total Profit</th>
+                                                    <th>Pestiside Business</th>
+                                                    <th>Fertilizer Business</th>
+                                                    <th>Total Business</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                  <tr *ngFor="let details of byRangeCounterDeatils; let $index = index">
+                                                    <td>{{ $index + 1 }}</td>
+                                                    <td>{{details.counterDate}}</td>
+                                                    <td>{{details.pesticideProfit}}</td>
+                                                    <td>{{details.fertilizerProfit}}</td>
+                                                    <td>{{details.totalProfit}}</td>
+                                                    <td>{{details.pesticideBussiness}}</td>
+                                                    <td>{{details.fertilizerBussiness}}</td>
+                                                    <td>{{details.totalBussiness}}</td>
+                                                  </tr>
+                                                </tbody>
+                                              </table>         
+                       </div>
+               </div>
+        </div>
+        <hr>
+    </div>
+</div>

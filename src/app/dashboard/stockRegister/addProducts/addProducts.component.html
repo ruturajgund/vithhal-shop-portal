@@ -1,0 +1,95 @@
+<div class="container add-product-container">
+        <div class="row">
+            <div class="col-md-6">
+                <button [disabled]="products.length==0" class="btn btn-success btn-sm" (click)="saveProducts()">Save Products</button>
+                <button [hidden]="!companyPanelFlag" class="btn btn-primary btn-sm" (click)="openCompanyPanel()">Add Company</button>
+            </div>
+        </div>
+        <form name="form" #f="ngForm" novalidate>
+        <div class="form-group row" *ngIf="companyPanelFlag" >
+                <label class="col-md-3 col-sm-3 col-lg-2 control-label" for="companyName">Company Name :</label>  
+                <div class="col-md-6 col-sm-6 col-lg-6">
+                <input type="text" placeholder="Please enter Company Name" name="companyName" class="form-control input-md" [(ngModel)]="newCompany.companyName" #companyName="ngModel"
+                required>
+                </div>
+                <div class="col-md-3 col-sm-3 col-lg-2">
+                        <button class="btn btn-success btn-sm" [disabled]="!f.form.valid" (click)="saveCompany()">Save</button>
+                        <button class="btn btn-default btn-sm" (click)="closeCompanyPanel()">Cancel</button>
+                </div>
+        </div> 
+        </form>
+        <div>
+            <span class="success-message">{{message}}</span>
+        </div>
+    <div class="row">
+            
+            <div class="col-md-4 col-sm-4 col-lg-3">
+                    <form name="form" #f1="ngForm" novalidate>
+                            <div class="form-group">
+                                <label for="productId">Product Name</label>
+                                <input type="text" class="form-control" style="text-transform:uppercase" name="productName" [(ngModel)]="newProduct.productName" #productName="ngModel" required/>
+                            </div>
+                            <div class="form-group">
+                                <label for="buyPrice">Buy Price</label>
+                                <input type="number" class="form-control" name="buyPrice" [(ngModel)]="newProduct.buyPrice" #buyPrice="ngModel" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="quantity">Quantity</label>
+                                <input type="number" class="form-control" name="quantity" [(ngModel)]="newProduct.quantity" #quantity="ngModel" required />
+                            </div>
+                            <div class="form-group">
+                                    <label for="companyName">Company Name</label>
+                                    <select class="form-control" name="companyName" [(ngModel)]="newProduct.companyName" (click)="getCompanies()" #companyName="ngModel"
+                                    required >
+                                            <option *ngFor="let company of companies" value= {{company.companyName}}>
+                                                {{company.companyName}}
+                                            </option>
+                                          </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="productType">Product Type</label>
+                                <select class="form-control" name="productType" [(ngModel)]="newProduct.productType" #productType="ngModel"
+                                required>
+                                        <option *ngFor="let productType of productTypes" value= {{productType.type}} >
+                                          {{productType.type}}
+                                        </option>
+                                      </select>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-success btn-sm" [disabled]="!f1.form.valid" (click)="addProduct()">Add Product</button>
+                                <!-- <a class="btn btn-primary">Cancel</a> -->
+                            </div>
+                        </form>
+            </div>
+            <div class="col-md-8 col-sm-8 col-lg-9" *ngIf="products.length!=0">
+                    <table class="table table-hover table-bordered app-table">
+                            <thead>
+                              <tr>
+                                <th>#</th>
+                                <th>Product</th>
+                                <th>Company</th>
+                                <th>Type</th>
+                                <th>Quantity</th>
+                                <th>Buy Price</th>
+                                <th>Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let product of products; let $index = index">
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{product.productName}}</td>
+                                <td>{{product.companyName}}</td>
+                                <td>{{product.productType}}</td>
+                                <td>{{product.quantity}}</td>
+                                <td>{{product.buyPrice}}</td>
+                                <td>
+                                    <a (click)="removeProduct($index)">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                </div>
+        </div>
+</div>

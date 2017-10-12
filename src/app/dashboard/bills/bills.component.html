@@ -1,0 +1,61 @@
+<div class="container bills-container">
+    <div class="row">
+        <div class="col-md-6 col-sm-6 col-lg-6"><h4>Today's Counter Details</h4></div>
+        <div class="col-md-12 col-sm-12 col-lg-6">
+            
+            <button class="btn btn-primary btn-sm bill-action-button" (click)="newBill()">New Bill</button>
+            <button class="btn btn-default btn-sm bill-action-button" (click)="closeCounter()">Close Counter</button>
+            <button class="btn btn-default btn-sm bill-action-button" (click)="openCustomerPanel()">New Customer</button>
+            <button class="btn btn-success btn-sm bill-action-button" (click)="refresh()">Refresh</button>
+        </div>
+    </div>
+    <div class="row" *ngIf="newCustomerFlag">
+            <div class="col-md-12 col-sm-12 col-lg-12">
+                <form name="form" #f="ngForm" novalidate>
+                    <div class="form-group">
+                        <div class="col-md-4 col-sm-8 col-lg-4">
+                                <label for="customerName" class="col-md-12">Customer Name:</label>
+                                <div class="col-md-12">
+                                        <input type="text" placeholder="Enter Customer Name"class="form-control" name="customerName" [(ngModel)]="newCustomer.customerName"
+                                        required />
+                                </div>
+                        </div>
+                        <div class="col-md-4 col-sm-8 col-lg-4">
+                                <label for="mobile" class="col-md-12">Mobile Number:</label>
+                                <div class="col-md-12 col-sm-12 col-lg-12">
+                                        <input type="number" placeholder="Enter Mobile Number" class="form-control" name="mobile" [(ngModel)]="newCustomer.mobile"
+                                        required />
+                                </div>
+                        </div>
+                        <div class="col-md-4 col-sm-8 col-lg-4" style="padding-top: 3%;">
+                                <button class="btn btn-primary btn-sm " [disabled]="!f.form.valid" (click)="createCustomer()">Create</button>
+                                <button class="btn btn-default btn-sm " (click)="closeCustomerPanel()">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+       </div>
+    </div>
+    <div class="row" *ngIf="todaysAllBills.length!=0">
+            <div class="col-md-6 col-sm-6 col-lg-4" *ngFor="let bill of todaysAllBills">
+                    <div class="col-md-12 col-sm-12 col-lg-12 custom-card">
+                            <div class="col-md-12 col-sm-12 col-lg-12 card-header">
+                                    <h1>{{bill.billId}}</h1>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-lg-12 card-content">
+                                    <div class="col-md-12 col-sm-12 col-lg-12" style="padding:0px">
+                                            <label for="customerName" class="col-md-8 col-sm-8 col-lg-6">Customer Id:</label>
+                                            <div class="col-md-4 col-sm-4 col-lg-6">{{bill.customerId}}</div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-lg-12" style="padding:0px">
+                                            <label for="customerName" class="col-md-8 col-sm-8 col-lg-6">Total Amount:</label>
+                                            <div class="col-md-4 col-sm-4 col-lg-6"><i class="fa fa-inr"></i>{{bill.totalAmount}}</div>
+                                    </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-lg-12 card-footer">
+                                    <button class="btn btn-success btn-sm card-action-button" (click)="viewBillById(bill.billId)">View Bill</button>
+                            </div>
+                    </div>
+                    
+            </div>
+    </div>
+</div>

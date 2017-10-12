@@ -1,0 +1,98 @@
+<div class="container view-bill-container">
+  <div class="row">
+      <div class="col-md-12 col-sm-12 col-lg-12">
+         <button class="btn btn-info btn-arrow-left" (click)="back()">Back</button>
+      </div>
+  </div>
+  <div class="row bill-card">
+    <div class="row row-alignment">
+      <div class="col-md-12 col-sm-12 col-lg-6">
+          <div class="form-group">
+              <label class="col-md-6 col-sm-6 col-lg-6 control-label">Bill Number: </label>  
+              <div class="col-md-6 col-sm-6 col-lg-6">
+              {{bill.billId}}
+              </div>
+            </div>
+      </div>
+      <div class="col-md-12 col-sm-12 col-lg-6">
+          <div class="form-group">
+              <label class="col-md-6 col-sm-6 col-lg-6 control-label">Date: </label>  
+              <div class="col-md-6 col-sm-6 col-lg-6">
+              {{bill.billDate}}
+              </div>
+            </div>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12 row-alignment">
+            <table class="table app-table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Product </th>
+                        <th>Type</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let item of bill.purchaseItems; let $index = index">
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{item.productName}}</td>
+                        <td>{{item.productType}}</td>
+                        <td>{{item.quantity}}</td>
+                        <td><i class="fa fa-inr"></i>{{item.price}}</td>
+                        <td><i class="fa fa-inr"></i>{{item.subTotal}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+        </div>
+    </div>
+    <div class="row row-alignment">
+        <hr style="border-top: dotted 2px;">
+        <div class="col-md-6 col-sm-6 col-lg-6"></div>
+        <div class="col-md-3 col-sm-3 col-lg-4">{{totalQuantity}}</div>
+        <div class="col-md-3 col-sm-3 col-lg-2"><i class="fa fa-inr"></i>{{totalAmount}}</div>
+    </div>
+    <hr>
+    <div class="row row-alignment">
+            <div class="row row-alignment">
+                    <div class="col-md-12 col-sm-12 col-lg-6">
+                        <div class="form-group">
+                            <label class="col-md-5 col-sm-5 col-lg-8 control-label">Credit Amount: </label>  
+                            <div class="col-md-7 col-sm-7 col-lg-4">
+                                    <i class="fa fa-inr"></i>{{bill.amountCredit}}
+                            </div>
+                          </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-lg-6">
+                            <div class="form-group">
+                                <label class="col-md-5 col-sm-5 col-lg-8 control-label">Paid Amount: </label>  
+                                <div class="col-md-7 col-sm-7 col-lg-4">
+                                        <i class="fa fa-inr"></i>{{bill.amountPaid}}
+                                </div>
+                              </div>
+                        </div>
+                  </div>
+                  <div class="row row-alignment">
+                      <div class="col-md-12 col-sm-12 col-lg-12">
+                            <div class="form-group">
+                                <label class="col-md-5 col-sm-5 col-lg-3 control-label">Created By: </label>  
+                                <div class="col-md-7 col-sm-7 col-lg-9">
+                                {{bill.createdBy}}
+                                </div>
+                              </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-lg-12">
+                                <div class="form-group">
+                                    <label class="col-md-5 col-sm-5 col-lg-3 control-label">Date and Time: </label>  
+                                    <div class="col-md-7 col-sm-7 col-lg-9">
+                                    {{bill.createdDate | date:'MM/dd/yyyy h:mm a'}}
+                                    </div>
+                                  </div>
+                            </div>
+                  </div>
+  </div>
+</div>

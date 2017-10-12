@@ -1,0 +1,107 @@
+<div class="container display-all-product-container">
+    <div class="row">
+        <div class="col-md-4 col-lg-3 col-sm-12">
+            <h4>List of Customers</h4>
+        </div>
+        <div class="col-md-8 col-lg-5 col-sm-8">
+                <div class="form-group">
+                        <label class="col-md-2 control-label" for="search" style="padding-top: 7px;">Search: </label>  
+                        <div class="col-md-10">
+                        <input type="text" placeholder="Search By Customer Name" name="search" class="form-control input-md" [(ngModel)]="search" 
+                        (ngModelChange)="searchByCustomerName($event)">
+                        </div>
+                </div>
+        </div>
+        <div class="col-md-12 col-lg-4 col-sm-12">
+                <button class="btn btn-default btn-sm bill-action-button" (click)="openCustomerPanel()">New Customer</button>
+                <button class="btn btn-success btn-sm bill-action-button" (click)="refresh()">Refresh</button>
+        </div>
+    </div>
+    <div class="row" *ngIf="newCustomerFlag">
+            <div class="col-md-12 col-sm-12 col-lg-12">
+                    <form name="form" #f="ngForm" novalidate>
+                            <div class="form-group">
+                                <div class="col-md-4 col-sm-8 col-lg-4">
+                                        <label for="customerName" class="col-md-12">Customer Name:</label>
+                                        <div class="col-md-12">
+                                                <input type="text" placeholder="Enter Customer Name"class="form-control" name="customerName" [(ngModel)]="newCustomer.customerName"
+                                                required />
+                                        </div>
+                                </div>
+                                <div class="col-md-4 col-sm-8 col-lg-4">
+                                        <label for="mobile" class="col-md-12">Mobile Number:</label>
+                                        <div class="col-md-12 col-sm-12 col-lg-12">
+                                                <input type="number" placeholder="Enter Mobile Number" class="form-control" name="mobile" [(ngModel)]="newCustomer.mobile"
+                                                required />
+                                        </div>
+                                </div>
+                                <div class="col-md-4 col-sm-8 col-lg-4" style="padding-top: 3%;">
+                                        <button class="btn btn-primary btn-sm " [disabled]="!f.form.valid" (click)="createCustomer()">Create</button>
+                                        <button class="btn btn-default btn-sm " (click)="closeCustomerPanel()">Cancel</button>
+                                </div>
+                            </div>
+                    </form>
+       </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+                <table class="table table-hover table-bordered app-table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Customer Name</th>
+                            <th>Customer Id</th>
+                            <th>Mobile Number</th>
+                            <th>Credit</th>
+                            <th>Paid</th>
+                            <th>Total</th>
+                            <th>Action</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let customer of pagedItems; let $index = index">
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{customer.customerName}}</td>
+                            <td>{{customer.customerId}}</td>
+                            <td>{{customer.mobile}}</td>
+                            <td><i class="fa fa-inr"></i>{{customer.amountCredit}}</td>
+                            <td><i class="fa fa-inr"></i>{{customer.amountPaid}}</td>
+                            <td><i class="fa fa-inr"></i>{{customer.totalAmount}}</td>
+                            <td>
+                                <a (click)="viewCustomerDetails($index)">
+                                    <span class="glyphicon glyphicon-eye-open"></span>
+                                </a>
+                            </td>
+                            <td *ngIf="customer.amountCredit==0" style="color: green">
+                                <i class="fa fa-check-square-o"></i>&nbsp;Cleared
+                            </td>
+                            <td *ngIf="customer.amountCredit!=0" style="color: #f13939">
+                                <i class="fa fa-square"></i>&nbsp;Pending
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+        </div>
+    </div>
+    <div class="row" *ngIf="paginationFlag">
+            <ul class="pagination pull-right">
+                    <li [ngClass]="{disabled:pager.currentPage === 1}">
+                        <a (click)="setPage(1)">First</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === 1}">
+                        <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+                    </li>
+                    <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                        <a (click)="setPage(page)">{{page}}</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                        <a (click)="setPage(pager.currentPage + 1)">Next</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                        <a (click)="setPage(pager.totalPages)">Last</a>
+                    </li>
+                </ul>
+</div>
+    
+</div>
