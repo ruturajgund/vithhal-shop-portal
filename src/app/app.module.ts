@@ -52,7 +52,7 @@ const ROUTES = [
     children: [
       {
         path: '',
-        redirectTo: 'overview',
+        redirectTo: 'bills',
         pathMatch: 'full'
       },
       {
