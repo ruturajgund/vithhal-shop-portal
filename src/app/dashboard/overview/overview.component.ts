@@ -47,22 +47,22 @@ export class OverviewComponent implements OnInit{
     ngOnInit(){
         if(this.currentUser.role === "ADMIN"){ this.authenticationFlag = true;}
         this.slimLoadingBarService.start();
-        this.productService.getAllProducts().subscribe(
-            response => {
-                var data = response.json();
-                this.allProducts = data.products;
-                this.allProducts.forEach(product => {
-                    if(product.productType === "FERTILIZER"){
-                        this.fertilizerDetails.ProductNames.push(product.productName);
-                        this.fertilizerDetails.ProductQuantity.push(product.quantity);
-                    }
-                    else{
-                        this.pestisideDetails.ProductNames.push(product.productName);
-                        this.pestisideDetails.ProductQuantity.push(product.quantity);
-                    }
-                });
-            }
-        );
+        // this.productService.getAllProducts().subscribe(
+        //     response => {
+        //         var data = response.json();
+        //         this.allProducts = data.products;
+        //         this.allProducts.forEach(product => {
+        //             if(product.productType === "FERTILIZER"){
+        //                 this.fertilizerDetails.ProductNames.push(product.productName);
+        //                 this.fertilizerDetails.ProductQuantity.push(product.quantity);
+        //             }
+        //             else{
+        //                 this.pestisideDetails.ProductNames.push(product.productName);
+        //                 this.pestisideDetails.ProductQuantity.push(product.quantity);
+        //             }
+        //         });
+        //     }
+        // );
         this.billService.getAllCounterDetails().subscribe(
             response => {
                 var data = response.json();
@@ -95,18 +95,18 @@ export class OverviewComponent implements OnInit{
     
   public lineChartLabels:Array<any> = this.allCounterDate;
   public lineChartType:string = 'line';
-  public pieChartType:string = 'doughnut';
+//   public pieChartType:string = 'doughnut';
  
-  // Pie
-  public pieChartLabels1:string[] = this.fertilizerDetails.ProductNames
-  public pieChartData1:number[] = this.fertilizerDetails.ProductQuantity;
+//   // Pie
+//   public pieChartLabels1:string[] = this.fertilizerDetails.ProductNames
+//   public pieChartData1:number[] = this.fertilizerDetails.ProductQuantity;
 
-  public pieChartLabels2:string[] = this.pestisideDetails.ProductNames
-  public pieChartData2:number[] = this.pestisideDetails.ProductQuantity;
+//   public pieChartLabels2:string[] = this.pestisideDetails.ProductNames
+//   public pieChartData2:number[] = this.pestisideDetails.ProductQuantity;
  
   public randomizeType():void {
     this.lineChartType = this.lineChartType === 'line' ? 'bar' : 'line';
-    this.pieChartType = this.pieChartType === 'doughnut' ? 'pie' : 'doughnut';
+    // this.pieChartType = this.pieChartType === 'doughnut' ? 'pie' : 'doughnut';
   }
  
   public chartClicked(e:any):void {

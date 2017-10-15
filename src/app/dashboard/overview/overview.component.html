@@ -13,7 +13,7 @@
  
     <div *ngIf="graphFlag">
         <hr>
-        <div class="row">
+        <!-- <div class="row">
                 <div class="col-md-6 fertilizer-graph">
                         <h3 class="graph-label">FERTILIZER GRAPH</h3>
                             <canvas baseChart
@@ -33,8 +33,8 @@
                                     (chartClick)="chartClicked($event)"></canvas>
                     </div>
         </div>
-        <hr>
-        <div class="row" *ngIf="authenticationFlag">
+        <hr> -->
+        <div class="row">
                 <div class="col-md-12">
                         <h3 class="graph-label">BUSSINESS GRAPH</h3>
                         <canvas baseChart
@@ -47,7 +47,7 @@
                 </div>
         </div>
         <hr>
-        <div class="row" *ngIf="authenticationFlag">
+        <div class="row">
                 <div class="col-md-12">
                         <h3 class="graph-label">PROFIT GRAPH</h3>
                         <canvas baseChart
@@ -60,7 +60,7 @@
                 </div>
         </div>
        <hr>
-       <div class="row" *ngIf="authenticationFlag">
+       <div class="row">
                 <h3 class="graph-label">COUNTER DETAILS BY DATE RANGE</h3>
                <div class="row">
                         <form name="form" #f="ngForm" novalidate>

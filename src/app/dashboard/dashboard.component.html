@@ -40,7 +40,7 @@
         <div class="side-menu-container">
             <ul class="nav navbar-nav">
     
-                <li><a [routerLink]="['/dashboard/overview']"><i class="fa fa-line-chart"></i>&nbsp;&nbsp;&nbsp; OVERVIEW</a></li>
+                <li *ngIf="authenticationFlag"><a [routerLink]="['/dashboard/overview']"><i class="fa fa-line-chart"></i>&nbsp;&nbsp;&nbsp; OVERVIEW</a></li>
                 <li><a [routerLink]="['/dashboard/bills']"><i class="fa fa-file-text-o"></i>&nbsp;&nbsp;&nbsp; BILLS</a></li>
                 <li class="panel panel-default" id="dropdown">
                     <a data-toggle="collapse" href="#dropdown-lvl1">

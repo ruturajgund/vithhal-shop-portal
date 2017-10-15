@@ -119,7 +119,7 @@ function updateUserDetails(req, res){
 
 function getProducts(req, res){
   
-  db.collection(PRODUCTS_COLLECTION).find().toArray(function(error,products){
+  db.collection(PRODUCTS_COLLECTION).find().sort({companyName: 1, productName: 1}).toArray(function(error,products){
     if (error) res.send({message:"Database Problem.",status: 500});
     
     res.send({products: products,status: 200});
@@ -279,7 +279,7 @@ function saveCompany(req, res){
   }
 
 function getCompanies(req, res){
-  db.collection(COMPANY_COLLECTION).find().toArray(function(error,companies){
+  db.collection(COMPANY_COLLECTION).find().sort({companyName : 1}).toArray(function(error,companies){
       if (error) res.send({message:"Database Problem.",status: 500});
       
       res.send({companies: companies,status: 200});
